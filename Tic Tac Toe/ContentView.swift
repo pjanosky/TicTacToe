@@ -9,8 +9,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var gameBoard = GameBoard(firstMarker: .x)
+    init() {
+        var gb = GameBoard(firstMarker: .x)
+        gb.move(Coordinate(1, 1))
+        gb.move(Coordinate(2, 0))
+        self.gameBoard = gb
+    }
+    
     var body: some View {
-        Text("Hello, World!")
+        BoardView(gameBoard: self.$gameBoard)
     }
 }
 

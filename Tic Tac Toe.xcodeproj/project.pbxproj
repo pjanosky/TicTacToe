@@ -7,15 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D03108BA23C63FCE002AF43B /* LinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03108B923C63FCE002AF43B /* LinesView.swift */; };
+		D03108BC23C6409E002AF43B /* MarkersGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03108BB23C6409E002AF43B /* MarkersGrid.swift */; };
+		D05FACA423C2FE18006B42C8 /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05FACA323C2FE18006B42C8 /* GameBoard.swift */; };
 		D0669FD923C2DCD1007FC462 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0669FD823C2DCD1007FC462 /* AppDelegate.swift */; };
 		D0669FDB23C2DCD1007FC462 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0669FDA23C2DCD1007FC462 /* SceneDelegate.swift */; };
 		D0669FDD23C2DCD1007FC462 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0669FDC23C2DCD1007FC462 /* ContentView.swift */; };
 		D0669FDF23C2DCD4007FC462 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0669FDE23C2DCD4007FC462 /* Assets.xcassets */; };
 		D0669FE223C2DCD4007FC462 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0669FE123C2DCD4007FC462 /* Preview Assets.xcassets */; };
 		D0669FE523C2DCD4007FC462 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0669FE323C2DCD4007FC462 /* LaunchScreen.storyboard */; };
+		D0762D7E23C590350086D57D /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0762D7D23C590350086D57D /* BoardView.swift */; };
+		D0762D8223C59B1E0086D57D /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0762D8123C59B1E0086D57D /* MarkerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D03108B923C63FCE002AF43B /* LinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinesView.swift; sourceTree = "<group>"; };
+		D03108BB23C6409E002AF43B /* MarkersGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkersGrid.swift; sourceTree = "<group>"; };
+		D05FACA323C2FE18006B42C8 /* GameBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
 		D0669FD523C2DCD1007FC462 /* Tic Tac Toe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tic Tac Toe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0669FD823C2DCD1007FC462 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0669FDA23C2DCD1007FC462 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +32,8 @@
 		D0669FE123C2DCD4007FC462 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D0669FE423C2DCD4007FC462 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0669FE623C2DCD4007FC462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0762D7D23C590350086D57D /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		D0762D8123C59B1E0086D57D /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +47,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D03108BD23C640AD002AF43B /* Board */ = {
+			isa = PBXGroup;
+			children = (
+				D0762D7D23C590350086D57D /* BoardView.swift */,
+				D03108B923C63FCE002AF43B /* LinesView.swift */,
+				D03108BB23C6409E002AF43B /* MarkersGrid.swift */,
+				D0762D8123C59B1E0086D57D /* MarkerView.swift */,
+			);
+			path = Board;
+			sourceTree = "<group>";
+		};
 		D0669FCC23C2DCD1007FC462 = {
 			isa = PBXGroup;
 			children = (
@@ -59,6 +80,8 @@
 				D0669FD823C2DCD1007FC462 /* AppDelegate.swift */,
 				D0669FDA23C2DCD1007FC462 /* SceneDelegate.swift */,
 				D0669FDC23C2DCD1007FC462 /* ContentView.swift */,
+				D03108BD23C640AD002AF43B /* Board */,
+				D05FACA323C2FE18006B42C8 /* GameBoard.swift */,
 				D0669FDE23C2DCD4007FC462 /* Assets.xcassets */,
 				D0669FE323C2DCD4007FC462 /* LaunchScreen.storyboard */,
 				D0669FE623C2DCD4007FC462 /* Info.plist */,
@@ -146,9 +169,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D05FACA423C2FE18006B42C8 /* GameBoard.swift in Sources */,
 				D0669FD923C2DCD1007FC462 /* AppDelegate.swift in Sources */,
+				D0762D7E23C590350086D57D /* BoardView.swift in Sources */,
 				D0669FDB23C2DCD1007FC462 /* SceneDelegate.swift in Sources */,
+				D03108BA23C63FCE002AF43B /* LinesView.swift in Sources */,
+				D0762D8223C59B1E0086D57D /* MarkerView.swift in Sources */,
 				D0669FDD23C2DCD1007FC462 /* ContentView.swift in Sources */,
+				D03108BC23C6409E002AF43B /* MarkersGrid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
