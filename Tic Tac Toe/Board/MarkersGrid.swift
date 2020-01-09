@@ -18,28 +18,27 @@ struct MarkersGrid: View {
     }
 
     var body: some View {
-        ZStack(alignment: .topLeading) {
+        VStack(spacing: 0) {
             ForEach(0..<3) { row in
-                ForEach(0..<3) { col in
-                    Group {
+                HStack(spacing: 0) {
+                    ForEach(0..<3) { col in
                         if self.gameBoard.checkSpace(Coordinate(row, col)) == nil {
                             Spacer()
+                                .frame(width: self.size, height: self.size)
                                 .contentShape(Rectangle())
                                 .onTapGesture{
-                                    print("moving (\(row), \(col))")
-
-                                    withAnimation(.spring()) {
+                                    withAnimation(.spring(response: 0.35, dampingFraction: 0.5)) {
                                         self.gameBoard.move(Coordinate(row, col))
                                     }
-                                }
+                            }
                         } else {
                             MarkerView(marker: self.gameBoard.checkSpace(Coordinate(row, col))!)
-                                .transition(.scale(scale: 0.0, anchor: .center))
+                                .padding(self.size / 6)
+                                .frame(width: self.size, height: self.size)
+                                .transition(.scale)
                                 
                         }
                     }
-                    .frame(width: self.size, height: self.size)
-                    .offset(CGSize(width: self.size * CGFloat(col), height: self.size * CGFloat(row)))
                 }
             }
         }

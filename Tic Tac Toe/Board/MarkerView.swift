@@ -17,14 +17,16 @@ struct MarkerView: View {
                 Image(systemName: "xmark")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .font(.system(size: 1, weight: .bold, design: .default))
                     .foregroundColor(.red)
             } else {
                 Image(systemName: "circle")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .font(.system(size: 1, weight: .black, design: .default))
                     .foregroundColor(.blue)
             }
-        }.padding(40)
+        }
     }
 }
 
