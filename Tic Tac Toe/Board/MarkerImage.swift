@@ -8,7 +8,8 @@
 
 import SwiftUI
 
-struct MarkerView: View {
+struct MarkerImage: View {
+    @EnvironmentObject var data: Data
     var marker: Marker
     
     var body: some View {
@@ -18,23 +19,23 @@ struct MarkerView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .font(.system(size: 1, weight: .bold, design: .default))
-                    .foregroundColor(.red)
+                    .foregroundColor(self.data.xColor)
             } else {
                 Image(systemName: "circle")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .font(.system(size: 1, weight: .black, design: .default))
-                    .foregroundColor(.blue)
+                    .foregroundColor(self.data.oColor)
             }
         }
     }
 }
 
-struct MarkerView_Previews: PreviewProvider {
+struct MarkerImage_Previews: PreviewProvider {
     static var previews: some View {
         HStack {
-            MarkerView(marker: .x)
-            MarkerView(marker: .o)
+            MarkerImage(marker: .x).environmentObject(Data())
+            MarkerImage(marker: .o).environmentObject(Data())
         }
     }
 }

@@ -9,12 +9,11 @@
 import SwiftUI
 
 struct LinesView: View {
-    var geometry: GeometryProxy
     let size: CGFloat
     let offset: CGFloat
-    init(geometry: GeometryProxy) {
-        self.geometry = geometry
-        self.size = min(self.geometry.size.width, self.geometry.size.height)
+    
+    init(size: CGFloat) {
+        self.size = size
         self.offset = size / 3
     }
     
@@ -27,14 +26,14 @@ struct LinesView: View {
                 path.move(to: CGPoint(x: self.offset * CGFloat(n), y: 0))
                 path.addLine(to: CGPoint(x: self.offset * CGFloat(n), y: self.size))
             }
-        }.stroke(Color.black, lineWidth: 10)
+        }.stroke(Color("lines_color"), lineWidth: 10)
     }
 }
 
 struct LinesView_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { geometry in
-            LinesView(geometry: geometry)
+            LinesView(size: min(geometry.size.width, geometry.size.height))
         }
     }
 }
