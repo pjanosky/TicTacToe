@@ -13,10 +13,11 @@ struct BoardView: View {
     
     var body: some View {
         GeometryReader {geometry in
-            ZStack(alignment: .topLeading) {
-                LinesView(size: min(geometry.size.width, geometry.size.height))
-                MarkersView(size: min(geometry.size.width, geometry.size.height))
-                if self.data.tournamentMode && self.data.gameNumber == self.data.totalGames && self.data.gameOver && self.data.showConfetti {
+            ZStack {
+                LinesView(geometry: geometry)
+                MarkersView(geometry: geometry)
+                
+                if self.data.tournamentMode && self.data.gameNumber == self.data.totalGames && self.data.gameOver {
                     TournamentWinnerView()
                 }
             }

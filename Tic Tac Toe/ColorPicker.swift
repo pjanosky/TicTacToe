@@ -10,17 +10,17 @@ import SwiftUI
 
 struct ColorPicker: View {
     @Binding var selectedColor: Color
-    var colors = [Color("red_color"), Color("blue_color"), Color("green_color"), Color("purple_color"), Color("pink_color"), Color("peach_color"), Color("black_color")]
+    var colors = [Color("red_color"), Color("blue_color"), Color("green_color"), Color("purple_color"), Color("pink_color"), Color("peach_color")]
     
     var body: some View {
         HStack(spacing: 2) {
-            ForEach(self.colors, id: \.description) {color in
+            ForEach(self.colors, id: \.hashValue) { color in
                 Button(action: {self.selectedColor = color}) {
-                    Circle().frame(width: 30, height: 30)
+                    Circle().frame(width: 25, height: 25)
                         .foregroundColor(color)
-                        .padding(5)
+                        .padding(4)
                         .overlay(
-                            Circle().stroke(Color.secondary, lineWidth: self.selectedColor == color ? 5 : 0)
+                            Circle().stroke(color, lineWidth: self.selectedColor == color ? 4 : 0)
                         )
                 }
             }
@@ -29,7 +29,7 @@ struct ColorPicker: View {
 }
 
 struct ColorPicker_Previews: PreviewProvider {
-    @State static var color = Color.white
+    @State static var color = Data().colorX
     static var previews: some View {
         ColorPicker(selectedColor: $color)
     }

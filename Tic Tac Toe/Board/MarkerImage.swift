@@ -19,13 +19,13 @@ struct MarkerImage: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .font(.system(size: 1, weight: .bold, design: .default))
-                    .foregroundColor(self.data.xColor)
+                    .foregroundColor(self.data.colorX)
             } else {
                 Image(systemName: "circle")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .font(.system(size: 1, weight: .black, design: .default))
-                    .foregroundColor(self.data.oColor)
+                    .foregroundColor(self.data.colorO)
             }
         }
     }

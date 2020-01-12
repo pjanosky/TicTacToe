@@ -12,51 +12,49 @@ struct InformationBar: View {
     @EnvironmentObject var data: Data
     
     var body: some View {
-        HStack {
-            Group {
-                if self.data.tournamentMode {
+        ZStack {
+            if self.data.tournamentMode {
+                HStack {
                     ScoreBoard()
-                } else {
                     Spacer()
-                }
-            }.frame(width: 150, alignment: .leading)
-            
-            Spacer()
-            Group {
-                if self.data.winner != nil {
-                    Text("\(self.data.winner!.description) Won!")
-                        .bold()
-                } else if self.data.gameOver {
-                    Text("It's a Draw")
-                        .bold()
-                } else {
-                    Text("\(self.data.gameBoard.current.description)'s Turn")
-                        .bold()
-                        .foregroundColor(self.data.gameBoard.current == .x ? self.data.xColor : self.data.oColor)
-                }
-            }.font(.largeTitle)
-            Spacer()
-            
-            Group {
-                if self.data.tournamentMode && self.data.gameOver && self.data.gameNumber < self.data.totalGames {
-                    Button(action: {
-                        self.data.resetBoard()
-                        self.data.gameNumber += 1
-                    }) {
-                        HStack {
-                            Text("Next Game").frame(width: 50)
-                            Image(systemName: "chevron.right")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(height: 20)
+                    if self.data.gameOver && self.data.gameNumber < self.data.totalGames {
+                        Button(action: {
+                            self.data.resetBoard()
+                            self.data.gameNumber += 1
+                        }) {
+                            HStack {
+                                Text("Next Game").frame(width: 50)
+                                Image(systemName: "chevron.right")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(height: 20)
+                            }
                         }
                     }
-                } else {
-                    Spacer()
-                }
-            }.frame(width: 150, alignment: .trailing)
-        }.padding()
-            .frame(minHeight: 100)
+                }.padding()
+            }
+            
+            VStack {
+                Group {
+                    if self.data.winner != nil {
+                        Text("\(self.data.winner!.description) Won!")
+                            .foregroundColor(self.data.winner == .x ? self.data.colorX : self.data.colorO)
+                            .bold()
+                    } else if self.data.gameOver {
+                        Text("It's a Draw")
+                            .bold()
+                    } else if self.data.aiEnabled {
+                        Text("Your Turn")
+                            .foregroundColor(self.data.aiMarker == .x ? self.data.colorO : self.data.colorX)
+                        .bold()
+                    } else {
+                        Text("\(self.data.gameBoard.currentMarker.description)'s Turn")
+                            .foregroundColor(self.data.gameBoard.currentMarker == .x ? self.data.colorX : self.data.colorO)
+                            .bold()
+                    }
+                }.font(.largeTitle)
+            }
+        }.frame(minHeight: 100)
     }
 }
 

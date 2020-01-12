@@ -11,76 +11,68 @@ import SwiftUI
 
 class Data: ObservableObject {
     @Published var gameBoard = GameBoard()
-    @Published var expertMode = false
     @Published var aiEnabled = false
+    @Published var aiMarker = Marker.random
     
     @Published var gameOver = false
     @Published var winner: Marker?
     @Published var winningCoordinates: [Coordinate]?
     
-    @Published var xColor = Color("red_color")
-    @Published var oColor = Color("blue_color")
-    
     @Published var tournamentMode = false
     @Published var totalGames = 3
     @Published var gameNumber = 1
     @Published var scores = [Marker.x: 0, Marker.o: 0]
-    @Published var showConfetti = false
+    
+    @Published var colorX = Color("red_color")
+    @Published var colorO = Color("blue_color")
     
     func checkForWinner() {
         if let (winner, coordinates) = self.gameBoard.checkForWinner() {
-            winnerFound(winner: winner, coordinates: coordinates)
-        } else if gameBoard.turn == 9 {
+            withAnimation(.spring(response: 0.55, dampingFraction: 0.7)) {
+                self.gameOver = true
+                self.winner = winner
+                self.winningCoordinates = coordinates
+            }
+            
+            if tournamentMode {
+                scores[winner]! = scores[winner]! + 1
+            }
+        } else if gameBoard.turn > 9 {
             gameOver = true
-        } else {
-            gameOver = false
-            winner = nil
-            winningCoordinates = nil
         }
     }
     
-    private func winnerFound(winner: Marker, coordinates: [Coordinate]) {
-        self.gameOver = true
-        self.winner = winner
-        self.winningCoordinates = coordinates
-        
-        if tournamentMode {
-            scores[winner]! = scores[winner]! + 1
+    func makeMove(_ c: Coordinate) {
+        withAnimation(.spring(response: 0.35, dampingFraction: 0.5)) {
+            gameBoard.makeRandomMove()
+            checkForWinner()
+            
+            if aiEnabled && !gameOver && gameBoard.turn <= 9 {
+                gameBoard.aiMove()
+            }
+            checkForWinner()
         }
     }
     
     func resetBoard() {
-        gameOver = false
-        winner = nil
-        winningCoordinates = nil
-        gameBoard = GameBoard()
+        withAnimation(.linear(duration: 0.15)) {
+            gameOver = false
+            winner = nil
+            winningCoordinates = nil
+            tournamentMode = false
+            gameBoard.reset()
+        }
+        if aiEnabled && gameBoard.currentMarker == aiMarker {
+            gameBoard.aiMove()
+        }
     }
     
-    func resetTournament() {
+    func startTournament(numberGames: Int) {
+        tournamentMode = true
+        totalGames = numberGames
         gameNumber = 1
         scores = [Marker.x: 0, Marker.o: 0]
-    }
-    
-    var mode: String {
-        if tournamentMode {
-            return "Tournament"
-        } else if aiEnabled {
-            return "Single Player"
-        } else {
-            return "Multiplayer"
-        }
-    }
-    
-    var tournamentWinner: Marker? {
-        if scores[.x]! > scores[.o]! {
-            return .x
-        } else if scores[.o]! > scores[.x]! {
-            return .o
-        }
-        return nil
-    }
-    
-    var currentColor: Color {
-        gameBoard.current == .x ? self.xColor : self.oColor
+        aiMarker = Marker.random
+        resetBoard()
     }
 }

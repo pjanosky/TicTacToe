@@ -13,8 +13,8 @@ struct MarkersView: View {
     let size: CGFloat
     let offset: CGFloat
     
-    init(size: CGFloat) {
-        self.size = size
+    init(geometry: GeometryProxy) {
+        self.size = min(geometry.size.width, geometry.size.height)
         self.offset = size / 3
     }
 
@@ -23,13 +23,13 @@ struct MarkersView: View {
             ForEach(0..<3) { row in
                 HStack(spacing: 0) {
                     ForEach(0..<3) { col in
-                        if self.data.gameBoard.checkSpace(Coordinate(row, col)) == nil {
+                        if self.data.gameBoard[Coordinate(row, col)] == nil {
                             Spacer()
                                 .frame(width: self.offset, height: self.offset)
                                 .contentShape(Rectangle())
                                 .onTapGesture{ self.move(row: row, col: col) }
                         } else {
-                            MarkerImage(marker: self.data.gameBoard.checkSpace(Coordinate(row, col))!)
+                            MarkerImage(marker: self.data.gameBoard[Coordinate(row, col)]!)
                                 .padding(self.offset / 6)
                                 .frame(width: self.offset, height: self.offset)
                                 .transition(.scale)
@@ -46,14 +46,7 @@ struct MarkersView: View {
     
     func move(row: Int, col: Int) {
         withAnimation(.spring(response: 0.35, dampingFraction: 0.5)) {
-            if self.data.expertMode && Int.random(in: 0...9) <= 2 {
-                self.data.gameBoard.makeRandomMove()
-            } else {
-                self.data.gameBoard.makeMove(Coordinate(row, col))
-            }
-        }
-        withAnimation(.spring(response: 0.55, dampingFraction: 0.7)) {
-            self.data.checkForWinner()
+                self.data.makeMove(Coordinate(row, col))
         }
     }
 }
@@ -61,8 +54,7 @@ struct MarkersView: View {
 struct MarkersView_Previews: PreviewProvider {    
     static var previews: some View {
         GeometryReader {geometry in
-            MarkersView(size: min(geometry.size.width, geometry.size.height))
-                .environmentObject(Data())
+            MarkersView(geometry: geometry)
         }
     }
 }

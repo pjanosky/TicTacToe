@@ -11,41 +11,44 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var data: Data
     @State var showSettings = false
-    @State var showNewGame = false
     
     var body: some View {
         VStack {
             HStack(alignment: .top) {
                 Button(action: {
-                    self.showNewGame.toggle()
+                    self.data.resetBoard()
                 }) {
                     Text("New Game")
                 }.frame(width: 100, alignment: .leading)
-                .popover(isPresented: self.$showNewGame) {
-                    NewGameView(isPresented: self.$showNewGame)
-                        .environmentObject(self.data)
-                }
                 
                 Spacer()
                 
-                Text(self.data.mode)
+                Text(self.title)
                     .font(.title)
                 
                 Spacer()
                 
                 Button(action: {self.showSettings.toggle()}) {
-                    Text("Settings")
+                    Text("Menu")
                 }.frame(width: 100, alignment: .trailing)
                 .popover(isPresented: self.$showSettings) {
-                    SettingsView()
-                        .environmentObject(self.data)
+                    MenuView().environmentObject(self.data)
                 }
             }.padding()
             
-            BoardView()
-                .padding(20)
+            BoardView().padding(20)
             
             InformationBar()
+        }
+    }
+    
+    var title: String {
+        if data.tournamentMode {
+            return "Tournament"
+        } else if data.aiEnabled {
+            return "Single Player"
+        } else {
+            return "Multiplayer"
         }
     }
 }

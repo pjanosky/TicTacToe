@@ -16,9 +16,9 @@ struct ScoreBoard: View {
                 .font(.headline).padding(.bottom, -10)
             Divider()
             Text("X: \(self.data.scores[.x]!) Wins")
-                .foregroundColor(self.data.xColor)
+                .foregroundColor(self.data.colorX)
             Text("O: \(self.data.scores[.o]!) Wins")
-                .foregroundColor(self.data.oColor)
+                .foregroundColor(self.data.colorO)
         }.frame(width: 150)
     }
 }

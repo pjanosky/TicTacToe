@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum Marker: CustomStringConvertible, CaseIterable {
     case x, o
@@ -29,7 +30,7 @@ enum Marker: CustomStringConvertible, CaseIterable {
     }
 }
 
-struct Coordinate: Equatable {
+struct Coordinate: Equatable, Hashable {
     var row: Int
     var col: Int
     init(_ row: Int, _ col: Int) {
