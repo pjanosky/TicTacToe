@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MenuView: View {
     @EnvironmentObject var data: Data
+    @Binding var isPresented: Bool
     @State var games = 3
     
     var body: some View {
@@ -67,7 +68,10 @@ struct MenuView: View {
             Text("Tournament")
                 .font(.headline)
             Stepper("Number of Games: \(self.games)", value: self.$games, in: 2...100)
-            Button(action: {self.data.startTournament(numberGames: self.games)}) {
+            Button(action: {
+                self.data.startTournament(numberGames: self.games)
+                self.isPresented = false
+            }) {
                 Text("Start Tournament")
             }
         }
@@ -75,8 +79,9 @@ struct MenuView: View {
 }
 
 struct MenuView_Previews: PreviewProvider {
+    @State static var isPresented = true
     static var previews: some View {
-        MenuView()
+        MenuView(isPresented: $isPresented)
             .frame(width: 360)
             .environmentObject(Data())
     }

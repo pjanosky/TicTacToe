@@ -10,14 +10,13 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var data: Data
-    @State var showSettings = false
+    @State var showMenu = false
+    @State var showAlert = false
     
     var body: some View {
         VStack {
             HStack(alignment: .top) {
-                Button(action: {
-                    self.data.resetBoard()
-                }) {
+                Button(action: self.newGame) {
                     Text("New Game")
                 }.frame(width: 100, alignment: .leading)
                 
@@ -28,17 +27,26 @@ struct ContentView: View {
                 
                 Spacer()
                 
-                Button(action: {self.showSettings.toggle()}) {
+                Button(action: {self.showMenu.toggle()}) {
                     Text("Menu")
                 }.frame(width: 100, alignment: .trailing)
-                .popover(isPresented: self.$showSettings) {
-                    MenuView().environmentObject(self.data)
+                .popover(isPresented: self.$showMenu) {
+                    MenuView(isPresented: self.$showMenu).environmentObject(self.data)
                 }
             }.padding()
             
             BoardView().padding(20)
             
             InformationBar()
+        }.alert(isPresented: self.$showAlert) {
+            Alert(
+                title: Text("Are you sure you want to exit the tournament?"),
+                primaryButton: .default(Text("Exit"), action: {
+                    self.data.tournamentMode = false
+                    self.newGame()
+                }),
+                secondaryButton: .cancel()
+            )
         }
     }
     
@@ -49,6 +57,14 @@ struct ContentView: View {
             return "Single Player"
         } else {
             return "Multiplayer"
+        }
+    }
+    
+    func newGame() {
+        if data.tournamentMode {
+            showAlert = true
+        } else {
+            data.resetBoard()
         }
     }
 }

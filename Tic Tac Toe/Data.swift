@@ -44,13 +44,13 @@ class Data: ObservableObject {
     
     func makeMove(_ c: Coordinate) {
         withAnimation(.spring(response: 0.35, dampingFraction: 0.5)) {
-            gameBoard.makeRandomMove()
+            gameBoard.makeMove(c)
             checkForWinner()
             
             if aiEnabled && !gameOver && gameBoard.turn <= 9 {
                 gameBoard.aiMove()
+                checkForWinner()
             }
-            checkForWinner()
         }
     }
     
@@ -59,20 +59,20 @@ class Data: ObservableObject {
             gameOver = false
             winner = nil
             winningCoordinates = nil
-            tournamentMode = false
             gameBoard.reset()
         }
+        
         if aiEnabled && gameBoard.currentMarker == aiMarker {
             gameBoard.aiMove()
         }
     }
     
     func startTournament(numberGames: Int) {
+        resetBoard()
         tournamentMode = true
         totalGames = numberGames
         gameNumber = 1
         scores = [Marker.x: 0, Marker.o: 0]
         aiMarker = Marker.random
-        resetBoard()
     }
 }
