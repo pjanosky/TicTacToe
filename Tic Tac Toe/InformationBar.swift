@@ -55,6 +55,7 @@ struct InformationBar: View {
                 }.font(.largeTitle)
             }
         }.frame(minHeight: 100)
+        .transition(.identity)
     }
 }
 

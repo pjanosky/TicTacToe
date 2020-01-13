@@ -13,21 +13,15 @@ struct MarkerImage: View {
     var marker: Marker
     
     var body: some View {
-        Group {
-            if self.marker == .x {
-                Image(systemName: "xmark")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .font(.system(size: 1, weight: .bold, design: .default))
-                    .foregroundColor(self.data.colorX)
-            } else {
-                Image(systemName: "circle")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .font(.system(size: 1, weight: .black, design: .default))
-                    .foregroundColor(self.data.colorO)
-            }
-        }
+            Image(systemName: marker == .x ? "xmark" : "circle")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .foregroundColor(self.marker == .x ? self.data.colorX : self.data.colorO)
+                .font(.system(
+                    size: 1,
+                    weight: self.marker == .x ? .bold : .black,
+                    design: .default))
+                .transition(.scale)
     }
 }
 

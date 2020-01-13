@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ColorPicker: View {
     @Binding var selectedColor: Color
-    var colors = [Color("red_color"), Color("blue_color"), Color("green_color"), Color("purple_color"), Color("pink_color"), Color("peach_color")]
+    var colors = [Color("red_color"), Color("blue_color"), Color("green_color"), Color("purple_color"), Color("pink_color"), Color("peach_color"), Color("black_color")]
     
     var body: some View {
         HStack(spacing: 2) {

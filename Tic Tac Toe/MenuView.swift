@@ -51,12 +51,12 @@ struct MenuView: View {
             Text("Colors")
                 .font(.headline)
             HStack {
-                Text("X Color:")
+                Text("X:")
                 Spacer()
                 ColorPicker(selectedColor: self.$data.colorX)
             }
             HStack {
-                Text("O Color:")
+                Text("O:")
                 Spacer()
                 ColorPicker(selectedColor: self.$data.colorO)
             }

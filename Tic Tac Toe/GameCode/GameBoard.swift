@@ -135,6 +135,7 @@ struct GameBoard: CustomStringConvertible {
 }
 
 
+//AI
 extension GameBoard {
     mutating func aiMove() {
         //Check for game-ending move

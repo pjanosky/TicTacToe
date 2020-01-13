@@ -10,12 +10,10 @@ import SwiftUI
 
 struct MarkersView: View {
     @EnvironmentObject var data: Data
-    let size: CGFloat
     let offset: CGFloat
     
     init(geometry: GeometryProxy) {
-        self.size = min(geometry.size.width, geometry.size.height)
-        self.offset = size / 3
+        self.offset = min(geometry.size.width, geometry.size.height) / 3
     }
 
     var body: some View {
@@ -27,27 +25,20 @@ struct MarkersView: View {
                             Spacer()
                                 .frame(width: self.offset, height: self.offset)
                                 .contentShape(Rectangle())
-                                .onTapGesture{ self.move(row: row, col: col) }
+                                .onTapGesture{ self.data.makeMove(Coordinate(row, col)) }
                         } else {
                             MarkerImage(marker: self.data.gameBoard[Coordinate(row, col)]!)
                                 .padding(self.offset / 6)
                                 .frame(width: self.offset, height: self.offset)
-                                .transition(.scale)
                                 .rotation3DEffect(
-                                    (self.data.winner != nil && self.data.winningCoordinates!.contains(Coordinate(row, col))) ? .degrees(180) : .degrees(0),
+                                    self.data.winner != nil && self.data.winningCoordinates!.contains(Coordinate(row, col)) ? .degrees(180) : .degrees(0),
                                     axis: (x: 0, y: 1, z: 0)
-                            )
+                                )
                         }
                     }
                 }
             }
         }.disabled(self.data.gameOver)
-    }
-    
-    func move(row: Int, col: Int) {
-        withAnimation(.spring(response: 0.35, dampingFraction: 0.5)) {
-                self.data.makeMove(Coordinate(row, col))
-        }
     }
 }
 

@@ -11,7 +11,11 @@ import SwiftUI
 
 class Data: ObservableObject {
     @Published var gameBoard = GameBoard()
-    @Published var aiEnabled = false
+    @Published var aiEnabled = false {
+        didSet {
+            aiMarker = gameBoard.currentMarker.opposite
+        }
+    }
     @Published var aiMarker = Marker.random
     
     @Published var gameOver = false
@@ -28,7 +32,7 @@ class Data: ObservableObject {
     
     func checkForWinner() {
         if let (winner, coordinates) = self.gameBoard.checkForWinner() {
-            withAnimation(.spring(response: 0.55, dampingFraction: 0.7)) {
+            withAnimation(Animation.spring(response: 0.55, dampingFraction: 0.7).delay(aiEnabled ? 0.65 : 0.25)) {
                 self.gameOver = true
                 self.winner = winner
                 self.winningCoordinates = coordinates
@@ -45,25 +49,32 @@ class Data: ObservableObject {
     func makeMove(_ c: Coordinate) {
         withAnimation(.spring(response: 0.35, dampingFraction: 0.5)) {
             gameBoard.makeMove(c)
-            checkForWinner()
+        }
+        checkForWinner()
             
-            if aiEnabled && !gameOver && gameBoard.turn <= 9 {
+        if aiEnabled && !gameOver && gameBoard.turn <= 9 {
+            withAnimation(Animation.spring(response: 0.35, dampingFraction: 0.5).delay(0.4)) {
                 gameBoard.aiMove()
-                checkForWinner()
             }
+            checkForWinner()
         }
     }
     
     func resetBoard() {
+        gameOver = false
+        winner = nil
+        winningCoordinates = nil
         withAnimation(.linear(duration: 0.15)) {
-            gameOver = false
-            winner = nil
-            winningCoordinates = nil
             gameBoard.reset()
+        }
+        if !tournamentMode {
+            aiMarker = Marker.random
         }
         
         if aiEnabled && gameBoard.currentMarker == aiMarker {
-            gameBoard.aiMove()
+            withAnimation(.spring(response: 0.35, dampingFraction: 0.5)) {
+                gameBoard.aiMove()
+            }
         }
     }
     
@@ -72,7 +83,7 @@ class Data: ObservableObject {
         tournamentMode = true
         totalGames = numberGames
         gameNumber = 1
-        scores = [Marker.x: 0, Marker.o: 0]
         aiMarker = Marker.random
+        scores = [Marker.x: 0, Marker.o: 0]
     }
 }

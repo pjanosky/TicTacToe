@@ -18,35 +18,23 @@ struct ContentView: View {
             HStack(alignment: .top) {
                 Button(action: self.newGame) {
                     Text("New Game")
-                }.frame(width: 100, alignment: .leading)
+                }.alert(isPresented: self.$showAlert) { self.alert }
                 
                 Spacer()
-                
-                Text(self.title)
-                    .font(.title)
-                
-                Spacer()
-                
                 Button(action: {self.showMenu.toggle()}) {
                     Text("Menu")
-                }.frame(width: 100, alignment: .trailing)
-                .popover(isPresented: self.$showMenu) {
+                }.popover(isPresented: self.$showMenu) {
                     MenuView(isPresented: self.$showMenu).environmentObject(self.data)
                 }
             }.padding()
+            .overlay(
+                Text(self.title)
+                    .font(.title)
+            )
             
             BoardView().padding(20)
             
             InformationBar()
-        }.alert(isPresented: self.$showAlert) {
-            Alert(
-                title: Text("Are you sure you want to exit the tournament?"),
-                primaryButton: .default(Text("Exit"), action: {
-                    self.data.tournamentMode = false
-                    self.newGame()
-                }),
-                secondaryButton: .cancel()
-            )
         }
     }
     
@@ -61,11 +49,22 @@ struct ContentView: View {
     }
     
     func newGame() {
-        if data.tournamentMode {
+        if data.tournamentMode && self.data.gameNumber != self.data.totalGames {
             showAlert = true
         } else {
+            self.data.tournamentMode = false
             data.resetBoard()
         }
+    }
+    var alert: Alert {
+        Alert(
+            title: Text("Are you sure you want to exit the tournament?"),
+            primaryButton: .default(Text("Exit"), action: {
+                self.data.tournamentMode = false
+                self.newGame()
+            }),
+            secondaryButton: .cancel()
+        )
     }
 }
 

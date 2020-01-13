@@ -26,7 +26,7 @@ enum Marker: CustomStringConvertible, CaseIterable {
     }
     
     static var random: Self {
-        return self.allCases.randomElement()!
+        return allCases.randomElement()!
     }
 }
 
