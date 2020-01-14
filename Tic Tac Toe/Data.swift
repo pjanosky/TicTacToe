@@ -32,14 +32,14 @@ class Data: ObservableObject {
     
     func checkForWinner() {
         if let (winner, coordinates) = self.gameBoard.checkForWinner() {
-            withAnimation(Animation.spring(response: 0.55, dampingFraction: 0.7).delay(aiEnabled ? 0.65 : 0.25)) {
+            if tournamentMode {
+                scores[winner]! = scores[winner]! + 1
+            }
+            
+            withAnimation(Animation.spring(response: 0.55, dampingFraction: 0.7).delay(aiEnabled ? 0.55 : 0.25)) {
                 self.gameOver = true
                 self.winner = winner
                 self.winningCoordinates = coordinates
-            }
-            
-            if tournamentMode {
-                scores[winner]! = scores[winner]! + 1
             }
         } else if gameBoard.turn > 9 {
             gameOver = true
@@ -53,7 +53,7 @@ class Data: ObservableObject {
         checkForWinner()
             
         if aiEnabled && !gameOver && gameBoard.turn <= 9 {
-            withAnimation(Animation.spring(response: 0.35, dampingFraction: 0.5).delay(0.4)) {
+            withAnimation(Animation.spring(response: 0.35, dampingFraction: 0.5).delay(0.3)) {
                 gameBoard.aiMove()
             }
             checkForWinner()
@@ -79,11 +79,11 @@ class Data: ObservableObject {
     }
     
     func startTournament(numberGames: Int) {
-        resetBoard()
         tournamentMode = true
         totalGames = numberGames
         gameNumber = 1
         aiMarker = Marker.random
         scores = [Marker.x: 0, Marker.o: 0]
+        resetBoard()
     }
 }

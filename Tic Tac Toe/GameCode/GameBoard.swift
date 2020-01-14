@@ -17,9 +17,10 @@ struct GameBoard: CustomStringConvertible {
     var expertMode = false
     
     private var lastMove = Coordinate(-1, -1)
+    private var firstMove = Coordinate(-1, -1)
     private var offense = false
         
-    private let winningCombinations = [
+    private let winningCombinations = Set(arrayLiteral:
         [Coordinate(0, 0), Coordinate(0, 1), Coordinate(0, 2)],
         [Coordinate(1, 0), Coordinate(1, 1), Coordinate(1, 2)],
         [Coordinate(2, 0), Coordinate(2, 1), Coordinate(2, 2)],
@@ -28,23 +29,23 @@ struct GameBoard: CustomStringConvertible {
         [Coordinate(0, 2), Coordinate(1, 2), Coordinate(2, 2)],
         [Coordinate(0, 0), Coordinate(1, 1), Coordinate(2, 2)],
         [Coordinate(0, 2), Coordinate(1, 1), Coordinate(2, 0)]
-    ]
+    )
     
-    private let orthogonalCombinations: [[Coordinate]] = [
+    private let orthogonalCombinations = Set(arrayLiteral:
         [Coordinate(0, 0), Coordinate(0, 1), Coordinate(0, 2)],
         [Coordinate(1, 0), Coordinate(1, 1), Coordinate(1, 2)],
         [Coordinate(2, 0), Coordinate(2, 1), Coordinate(2, 2)],
         [Coordinate(0, 0), Coordinate(1, 0), Coordinate(2, 0)],
         [Coordinate(0, 1), Coordinate(1, 1), Coordinate(2, 1)],
         [Coordinate(0, 2), Coordinate(1, 2), Coordinate(2, 2)]
-    ]
+    )
     
-    private let corners: [Coordinate] = [
+    private let corners = Set(arrayLiteral:
         Coordinate(0, 0),
         Coordinate(2, 0),
         Coordinate(0, 2),
         Coordinate(2, 2)
-    ]
+    )
     
     subscript(_ c: Coordinate) -> Marker? {
         get {
@@ -138,6 +139,7 @@ struct GameBoard: CustomStringConvertible {
 //AI
 extension GameBoard {
     mutating func aiMove() {
+        print(firstMove)
         //Check for game-ending move
         if let winningMove = checkForWinningMove(forMarker: currentMarker) {
             //Win if possible
@@ -150,7 +152,8 @@ extension GameBoard {
         //Starting strategy
         if turn == 1 {
             offense = true
-            return makeMove(Coordinate(0, 0))
+            firstMove = corners.randomElement()!
+            return makeMove(firstMove)
         } else if turn == 2 {
             if isEmptySpace(Coordinate(1, 1)) {
                 return makeMove(Coordinate(1, 1))
@@ -179,7 +182,7 @@ extension GameBoard {
             }
         } else if turn == 5 {
             //Set up fork to win next turn
-            makeMove(getBestAdjacentMove(to: Coordinate(1, 1))!)
+            makeMove(getBestAdjacentMove(to: firstMove )!)
         } else if turn == 7 {
             //fork has failed, resort to defensive strategy
             offense = false
