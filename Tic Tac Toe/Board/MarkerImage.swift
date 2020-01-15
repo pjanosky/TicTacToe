@@ -21,6 +21,7 @@ struct MarkerImage: View {
                     size: 1,
                     weight: self.marker == .x ? .bold : .black,
                     design: .default))
+//                .shadow(radius: 10)
                 .transition(.scale)
     }
 }

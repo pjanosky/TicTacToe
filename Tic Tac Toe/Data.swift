@@ -86,4 +86,8 @@ class Data: ObservableObject {
         scores = [Marker.x: 0, Marker.o: 0]
         resetBoard()
     }
+    
+    func color(forMarker marker: Marker) -> Color {
+        return marker == .x ? colorX : colorO
+    }
 }
