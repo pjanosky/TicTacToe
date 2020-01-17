@@ -28,23 +28,13 @@ struct ContentView: View {
                 }
             }.padding()
             .overlay(
-                Text(self.title)
-                    .font(.title)
+                Text("Tic Tac Toe")
+                    .font(.largeTitle)
             )
             
             BoardView().padding(20)
             
             InformationBar()
-        }
-    }
-    
-    var title: String {
-        if data.tournamentMode {
-            return "Tournament"
-        } else if data.aiEnabled {
-            return "Single Player"
-        } else {
-            return "Multiplayer"
         }
     }
     
@@ -58,7 +48,7 @@ struct ContentView: View {
     }
     var alert: Alert {
         Alert(
-            title: Text("Are you sure you want to exit the tournament?"),
+            title: Text("Are you sure you want to exit the current tournament?"),
             primaryButton: .default(Text("Exit"), action: {
                 self.data.tournamentMode = false
                 self.newGame()

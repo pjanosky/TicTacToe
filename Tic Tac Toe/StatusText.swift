@@ -17,10 +17,10 @@ struct StatusText: View {
                 if self.data.aiEnabled {
                     if self.data.winner! == self.data.aiMarker {
                         Text("You Lost!")
-                            .foregroundColor(self.data.color(forMarker: self.data.winner!))
+                        .bold()
                     } else {
                         Text("You Won!")
-                            .foregroundColor(self.data.color(forMarker: self.data.winner!))
+                        .bold()
                     }
                 } else {
                     Text("\(self.data.winner!.description) Won!")
@@ -33,7 +33,7 @@ struct StatusText: View {
             } else if self.data.aiEnabled {
                 Text("Your Turn")
                     .foregroundColor(self.data.color(forMarker: self.data.aiMarker.opposite))
-                .bold()
+                    .bold()
             } else {
                 Text("\(self.data.gameBoard.currentMarker.description)'s Turn")
                     .foregroundColor(self.data.color(forMarker: self.data.gameBoard.currentMarker))

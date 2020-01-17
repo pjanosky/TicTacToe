@@ -139,7 +139,6 @@ struct GameBoard: CustomStringConvertible {
 //AI
 extension GameBoard {
     mutating func aiMove() {
-        print(firstMove)
         //Check for game-ending move
         if let winningMove = checkForWinningMove(forMarker: currentMarker) {
             //Win if possible

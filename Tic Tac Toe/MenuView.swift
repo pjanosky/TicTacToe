@@ -15,6 +15,17 @@ struct MenuView: View {
     
     var body: some View {
         VStack {
+            self.options
+            Divider().padding()
+            self.tournamentSettings
+            Divider().padding()
+            self.colorPickers
+            Spacer()
+        }.padding(.horizontal)
+    }
+    
+    var options: some View {
+        Group {
             Text("Mode")
                 .font(.headline)
                 .padding(.top)
@@ -32,22 +43,11 @@ struct MenuView: View {
                 Text("Single Player").tag(true)
                 Text("Multiplayer").tag(false)
             }.pickerStyle(SegmentedPickerStyle())
-            
-            Divider().padding(5)
-                        
-            self.tournamentSettings
-            
-            Divider().padding(5)
-                        
-            self.colorSelectors
-            
-            Spacer()
-            
-        }.padding(.horizontal)
+        }
     }
     
-    var colorSelectors: some View {
-        VStack {
+    var colorPickers: some View {
+        Group {
             Text("Colors")
                 .font(.headline)
             HStack {
@@ -64,7 +64,7 @@ struct MenuView: View {
     }
     
     var tournamentSettings: some View {
-        VStack {
+        Group {
             Text("Tournament")
                 .font(.headline)
             Stepper("Number of Games: \(self.games)", value: self.$games, in: 2...100)
@@ -82,7 +82,7 @@ struct MenuView_Previews: PreviewProvider {
     @State static var isPresented = true
     static var previews: some View {
         MenuView(isPresented: $isPresented)
-            .frame(width: 360)
+            .frame(width: 320)
             .environmentObject(Data())
     }
 }
