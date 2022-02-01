@@ -17,3 +17,10 @@ This app employs a standard SwiftUI design, with views composed of other smaller
 ## Purpose
 
 This app was not indented to be maintained over a long period of time. Instead, its purpose was to explore the functionality, expressibility, and speed to development of SwiftUI, and evaluate the pros and cons of using it in production code. Additionally, this app was also used to investigate the compatibility bewteen SwiftUI and UIKit to determine if SwiftUI features could be implemented incrementally in a UIKit app.
+
+## Screenshots
+Main Interface
+![](Screenshots/Screenshot1.png?raw=true "Main Interface")
+
+Settings Menu in Tournament Mode
+![](Screenshots/Screenshot2.png?raw=true "Settings Menu in Tournament Mode")
