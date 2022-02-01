@@ -26,6 +26,7 @@
 		D09EA03723C778AD0082DCA2 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09EA03623C778AC0082DCA2 /* ColorPicker.swift */; };
 		D09EA03923C77A0A0082DCA2 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09EA03823C77A0A0082DCA2 /* Support.swift */; };
 		D09EA03B23C77FFB0082DCA2 /* Confetti.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09EA03A23C77FFB0082DCA2 /* Confetti.swift */; };
+		D0EA8E7E27A9A0EA0042BF2E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D0EA8E7D27A9A0EA0042BF2E /* README.md */; };
 		D0F7997623CAA99400705AED /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F7997523CAA99400705AED /* MenuView.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		D09EA03623C778AC0082DCA2 /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		D09EA03823C77A0A0082DCA2 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		D09EA03A23C77FFB0082DCA2 /* Confetti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Confetti.swift; sourceTree = "<group>"; };
+		D0EA8E7D27A9A0EA0042BF2E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D0F7997523CAA99400705AED /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,6 +92,7 @@
 		D0669FCC23C2DCD1007FC462 = {
 			isa = PBXGroup;
 			children = (
+				D0EA8E7D27A9A0EA0042BF2E /* README.md */,
 				D0669FD723C2DCD1007FC462 /* Tic Tac Toe */,
 				D0669FD623C2DCD1007FC462 /* Products */,
 			);
@@ -193,6 +196,7 @@
 			files = (
 				D0669FE523C2DCD4007FC462 /* LaunchScreen.storyboard in Resources */,
 				D0669FE223C2DCD4007FC462 /* Preview Assets.xcassets in Resources */,
+				D0EA8E7E27A9A0EA0042BF2E /* README.md in Resources */,
 				D0669FDF23C2DCD4007FC462 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
