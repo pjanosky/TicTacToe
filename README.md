@@ -1,6 +1,6 @@
 # Tic Tac Toe
 
-A simple Tic Tac Toe game with a few extra features such as a virtual opponent.
+A simple Tic Tac Toe game written primarily with the SwiftUI API.
 
 ## Features
 
